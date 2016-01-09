@@ -1,0 +1,82 @@
+/*==========  General ==============*/
+
+#flexible-content-copy {
+    margin-bottom: 4px;
+}
+
+#TB_ajaxContent {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+
+/*==========  Dialog ==============*/
+
+.flexible-content-copy-dialog input[name="search"] {
+    padding: 3px 8px;
+    font-size: 1.7em;
+    line-height: 100%;
+    height: 1.7em;
+    width: 100%;
+    outline: 0;
+    margin: 0 0 20px;
+    background-color: #fff;
+}
+
+.flexible-content-copy-dialog .status-text {
+    text-align: center;
+}
+
+.flexible-content-copy-dialog .status-text.empty {
+    padding: 0;
+    margin: 0;
+}
+
+.flexible-content-copy-dialog .post-title {
+    cursor: pointer;
+    color: #0073aa;
+    border-bottom: 1px dotted #0073aa;
+}
+
+/*==========  Detail View ==============*/
+
+.flexible-content-copy-dialog .post-detail-view {
+    background: #f5f5f5;
+    border-left: 1px solid #ddd;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 55%;
+    margin-right: -5000px;
+}
+
+.flexible-content-copy-dialog .post-detail-view .post-detail-inner {
+    padding: 10px;
+    overflow: auto;
+    height: 97%;
+    width: 95%;
+    overflow-y: visible;
+}
+
+.flexible-content-copy-dialog .post-detail-view #layouts-list {
+    padding-bottom: 40px;
+}
+
+.flexible-content-copy-dialog .post-detail-view .post-detail-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #f5f5f5;
+    border-top: 1px solid #ddd;
+}
+
+.flexible-content-copy-dialog .post-detail-view .post-detail-actions .button-primary {
+    margin: 15px;
+    float: right;
+}
+
+.flexible-content-copy-dialog .post-detail-view .post-detail-actions .button-close {
+    margin: 15px;
+    float: left;
+}
