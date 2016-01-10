@@ -111,15 +111,20 @@ class Flexible_Content_Copy_Ajax {
 			$block_name = $blocks[ $i ]['acf_fc_layout'];
 			$block_meta = $this->search( $meta['layouts'], 'name', $block_name );
 			if ( ! isset( $block_meta[0] ) ) {
-				continue;
-			}
-			$block_meta = $block_meta[0];
+				$result[] = array(
+					'order' => $i,
+					'name'  => $block_name,
+					'label' => $block_name
+				);
+			} else {
+				$block_meta = $block_meta[0];
 
-			$result[] = array(
-				'order' => $i,
-				'name'  => $block_name,
-				'label' => $block_meta['label']
-			);
+				$result[] = array(
+					'order' => $i,
+					'name'  => $block_name,
+					'label' => $block_meta['label']
+				);
+			}
 		}
 
 		wp_send_json( array( 'layouts' => $result ) );

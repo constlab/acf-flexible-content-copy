@@ -178,6 +178,7 @@
         },
         onSubmit: function () {
             this.$el.find('form').submit();
+            return false;
         }
     });
 
