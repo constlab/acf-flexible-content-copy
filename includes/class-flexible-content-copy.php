@@ -47,8 +47,9 @@ class Flexible_Content_Copy {
 	 */
 	public function enqueue_scripts() {
 		$plugin_url = plugin_dir_url( __FILE__ ) . '../';
+		$min        = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_script( 'flexible-content-copy', $plugin_url . 'assets/js/flexible-content-copy.min.js', array(
+		wp_enqueue_script( 'flexible-content-copy', $plugin_url . 'assets/js/flexible-content-copy' . $min . '.js', array(
 			'jquery',
 			'backbone',
 			'underscore',
@@ -60,7 +61,7 @@ class Flexible_Content_Copy {
 			'url'    => esc_url( admin_url( 'admin-ajax.php' ) )
 		) );
 
-		wp_enqueue_style( 'flexible-content-copy', $plugin_url . 'assets/css/flexible-content-copy.min.css', array(), $this->plugin_version );
+		wp_enqueue_style( 'flexible-content-copy', $plugin_url . 'assets/css/flexible-content-copy' . $min . '.css', array(), $this->plugin_version );
 	}
 
 }
