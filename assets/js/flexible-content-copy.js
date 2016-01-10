@@ -148,6 +148,7 @@
             var model = this.model.toJSON();
             model.height = this.height;
             this.$el.html(this.template(model));
+            this.$el.find('#layouts-list').html('<img src="' + FlexibleContentCopyLocalize.loader + '">');
             return this;
         },
         renderLayouts: function () {
