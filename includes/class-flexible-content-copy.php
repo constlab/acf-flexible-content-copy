@@ -24,8 +24,8 @@ class Flexible_Content_Copy {
 	 * Register hooks
 	 */
 	private function admin_hooks() {
-		add_action( 'post_submitbox_start', array( $this, 'render_button' ), 9 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_footer', array( $this, 'render_button' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 11 );
 	}
 
 	private function admin_ajax() {

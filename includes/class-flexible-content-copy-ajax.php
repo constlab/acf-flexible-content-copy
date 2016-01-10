@@ -140,6 +140,12 @@ class Flexible_Content_Copy_Ajax {
 			wp_send_json_error( 'Bad params' );
 		}
 
+		$field_id = ( isset( $_POST['field'] ) ) ? esc_sql( $_POST['field'] ) : '';
+		if ( empty( $field_id ) ) {
+			wp_send_json_error( 'No field' );
+		}
+		$field_id = 'field_' . $field_id;
+
 		$layouts = ( isset( $_POST['flexible'] ) ) ? (array) $_POST['flexible'] : array();
 
 		if ( empty( $layouts ) ) {
@@ -165,8 +171,8 @@ class Flexible_Content_Copy_Ajax {
 			}
 		}
 
-		$old_blocks = get_field( 'content', $dest_post ) ?: array();
-		update_field( 'field_55dad56913c08', array_merge( $old_blocks, $result ), $dest_post );
+		$old_blocks = get_field( $field_id, $dest_post ) ?: array();
+		update_field( $field_id, array_merge( $old_blocks, $result ), $dest_post );
 
 		wp_redirect( admin_url( 'post.php?post=' . $dest_post . '&action=edit' ) );
 	}

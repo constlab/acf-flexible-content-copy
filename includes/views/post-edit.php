@@ -33,6 +33,7 @@
         <form action="<%= formUrl %>" method="post" class="post-detail-inner">
             <input type="hidden" name="dest_post" value="<?php the_ID() ?>">
             <input type="hidden" name="source_post" value="<%= id %>">
+            <input type="hidden" name="field" value="<%= field %>">
             <div>
                 <h2><%= title %></h2>
                 <a href="#" class="button button-close close button-large">Close</a>
@@ -51,5 +52,7 @@
 <div id="flexible-content-copy-dialog" style="display:none;"></div>
 
 <div id="flexible-content-copy">
-    <a href="#" class="open-dialog">Flexible Content copy</a>
+   <li style="float: left">
+       <a href="#" class="open-dialog button">Content copy</a>
+   </li>
 </div>

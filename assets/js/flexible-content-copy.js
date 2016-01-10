@@ -34,7 +34,11 @@
     var DialogView = Backbone.View.extend({
         className: 'flexible-content-copy-dialog', // for css
         template: _.template($('#flexible-content-copy-template').html()),
-        initialize: function () {
+        initialize: function (opts) {
+            this.field = opts.field;
+            if (this.field === undefined) {
+                console.error('No field id. Saving impossible');
+            }
             this.collection = new SearchResults();
             this.listenTo(this.collection, 'reset', this.renderSearchResult, this);
             Events.bind('detail', this.toggleDetail, this);
@@ -68,10 +72,12 @@
         },
         toggleDetail: function (row) {
             this.removeDetails();
-            var model = new Layout();
-            model.set('id', row.model.get('id'));
-            model.set('title', row.model.get('title'));
-            model.set('formUrl', FlexibleContentCopyLocalize.url + '?action=flexible-content-copy/save');
+            var model = new Layout({
+                id: row.model.get('id'),
+                title: row.model.get('title'),
+                formUrl: FlexibleContentCopyLocalize.url + '?action=flexible-content-copy/save',
+                field: this.field
+            });
             var detailView = new DetailView({model: model});
 
             this.$el.append(detailView.render().el);
@@ -178,20 +184,27 @@
      * App View
      */
     var AppView = Backbone.View.extend({
-        el: '#flexible-content-copy',
-        initialize: function () {
+        initialize: function (options) {
+            this.fieldArray = options.field.split('_');
+            if (this.fieldArray.length == 2) {
+                this.field = this.fieldArray[1];
+            } else {
+                return;
+            }
+            delete this.fieldArray;
+            delete options.field;
             this.template = _.template($('#flexible-content-copy').html());
             this.render();
         },
         render: function () {
-            this.$el.html(this.template());
+            this.$el.append(this.template());
             return this;
         },
         events: {
             'click .open-dialog': 'onOpenDialog'
         },
         onOpenDialog: function () {
-            this.dialogView = new DialogView();
+            this.dialogView = new DialogView({field: this.field});
             var $dialogEl = this.dialogView.render().$el;
             $('#flexible-content-copy-dialog').html($dialogEl);
             tb_show('Flexible Content Copy', '#TB_inline?inlineId=flexible-content-copy-dialog', false);
@@ -200,8 +213,6 @@
             return false;
         }
     });
-
-    new AppView();
 
     /////////
 
@@ -216,6 +227,21 @@
 
     $(window).resize(function () {
         calcDialogHeight();
+    });
+
+    $(window).load(function () {
+        var field = $('.acf-field-flexible-content').attr('data-key');
+        if (field === undefined) {
+            return;
+        }
+        if (_.isArray(field)) {
+            console.log('not supported yet');
+        } else {
+            new AppView({
+                el: '.acf-field-flexible-content[data-key="' + field + '"] .values ~ ul.acf-hl',
+                field: field
+            });
+        }
     });
 
 })(jQuery, _, Backbone);
